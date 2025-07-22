@@ -11,6 +11,7 @@ from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
 
+
 # === Environment Setup ===
 load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -49,7 +50,7 @@ Text:
 
 Structured summary:
 """)
-summary_chain = LLMChain(llm=llm, prompt=summary_prompt)
+summary_chain = summary_prompt | llm
 
 # === Discovery Functions ===
 def discover_key_pages(company_url, keyword_list=TARGET_KEYWORDS):
@@ -100,8 +101,13 @@ def summarize_discovered_pages(discovery_result):
         logger.info(f"Summarizing {label.title()}: {url}")
         text = scrape_page_text(url)
         if text:
-            response = summary_chain.run(text=text[:4000])
-            summaries[label] = {"url": url, "summary": response}
+            try:
+                response = summary_chain.invoke({"text": text[:4000]})
+                # Extract the text content from AIMessage
+                summary_text = response.content if hasattr(response, 'content') else str(response)
+                summaries[label] = {"url": url, "summary": summary_text}
+            except Exception as e:
+                logger.error(f"Failed to summarize {url}: {e}")
     return {"company": discovery_result["company"], "summaries": summaries}
 
 # === File Helpers ===
