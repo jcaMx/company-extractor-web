@@ -1,7 +1,19 @@
+# Core Flask
 flask==2.3.2
 flask-cors==3.0.10
+gunicorn==21.2.0
+
+# Web Scraping
 requests==2.31.0
 beautifulsoup4==4.12.2
+
+# Environment
 python-dotenv==1.0.0
+
+# AI Components
 langchain-openai==0.0.5
-gunicorn==21.2.0
+tiktoken==0.5.2; python_version < '3.12'  # Python 3.13+ not fully supported
+numpy==1.26.4  # Required dependency with pre-built wheels
+
+# Platform-specific dependencies
+psutil==5.9.8; sys_platform != 'win32'  # Optional for Linux monitoring
