@@ -4,6 +4,7 @@ from company_extractor import extract_company_info
 import os
 
 app = Flask(__name__, static_folder='../frontend/build', static_url_path='')
+print(f"Flask app object: {app}")  # Debug line
 CORS(app)  # Enable CORS for all routes
 
 # API Routes
