@@ -11,7 +11,9 @@ beautifulsoup4==4.12.2
 python-dotenv==1.0.0
 
 # AI Components
+langchain-core==0.1.0
 langchain-openai==0.0.5
+langchain-community==0.0.1
 tiktoken==0.5.2; python_version < '3.12'  # Python 3.13+ not fully supported
 numpy==1.26.4  # Required dependency with pre-built wheels
 
