@@ -10,12 +10,15 @@ beautifulsoup4==4.12.2
 # Environment
 python-dotenv==1.0.0
 
-# AI Components
-langchain-core==0.1.0
-langchain-openai==0.0.5
-langchain-community==0.0.1
-tiktoken==0.5.2; python_version < '3.12'  # Python 3.13+ not fully supported
-numpy==1.26.4  # Required dependency with pre-built wheels
+# AI Components (LangChain Ecosystem)
+langchain==0.3.26               # Core framework
+langchain-openai==0.1.6         # OpenAI integrations
+langchain-core==0.1.46          # Base abstractions
+langchain-community==0.0.29     # Community integrations
+openai==1.12.0                  # Direct OpenAI client
+tiktoken==0.5.2; python_version < '3.12'
 
-# Platform-specific dependencies
-psutil==5.9.8; sys_platform != 'win32'  # Optional for Linux monitoring
+# Required Dependencies
+numpy==1.26.4
+psutil==5.9.8; sys_platform != 'win32'
+typing-extensions==4.8.0        # Compatibility
