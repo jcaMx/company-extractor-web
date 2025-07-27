@@ -11,6 +11,10 @@ from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
 import time
+# import undetected_chromedriver as uc
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.support.ui import WebDriverWait
+# from selenium.webdriver.support import expected_conditions as EC
 
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
@@ -93,6 +97,7 @@ def discover_key_pages(company_url, keyword_list=TARGET_KEYWORDS):
 # === Scraping ===
 def scrape_page_text(url):
     try:
+        time.sleep(1.5)
         response = requests.get(url, headers=HEADERS, timeout=10)
         response.raise_for_status()
         soup = BeautifulSoup(response.text, "html.parser")
@@ -108,6 +113,9 @@ def summarize_discovered_pages(discovery_result):
     summaries = {}
     for label, url in discovery_result.get("pages_to_scrape", {}).items():
         logger.info(f"Summarizing {label.title()}: {url}")
+        
+        # sleep for 2 seconds to avoid rate limiting
+        time.sleep(2)
         text = scrape_page_text(url)
         if text:
             try:
