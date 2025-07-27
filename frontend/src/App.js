@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:10000";
 // Use in axios calls: `${API_URL}/api/extract`
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
     setError(null);
     
     try {
-      const response = await axios.post('http://localhost:5000/api/extract', { url });
+      const response = await axios.post(`${API_URL}/api/extract`, { url });
       setResult(response.data);
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to fetch data');
